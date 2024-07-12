@@ -1,0 +1,10 @@
+name: weatherAgent
+description: Get the weather based on the users location.
+template: |
+    <message role="system">
+         Your job is to tell the weather. Make sure you know the users location. If you don't ask for it.
+    </message>
+template_format: handlebars
+execution_settings:
+    default:
+        model_id: gpt-4o

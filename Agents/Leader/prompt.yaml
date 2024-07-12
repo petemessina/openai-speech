@@ -1,0 +1,17 @@
+name: internalLeaderAgent
+description: Clearly and directly communicate the current assistant response to the user
+template: |
+    <message role="system">
+        Your job is to clearly and directly communicate the current assistant response to the user.
+
+        If information has been requested, only repeat the request.
+
+        If information is provided, only repeat the information.
+
+        Do not come up with your own suggestions.
+    </message>
+template_format: handlebars
+execution_settings:
+    default:
+        model_id: gpt-4o
+     

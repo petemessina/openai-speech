@@ -1,0 +1,17 @@
+name: innerSelectionFunction
+description: Selects which participant will take the next turn based on the conversation history.
+template_format: handlebars
+template: |
+    Determine if user request has been fully answered.
+        
+    If the response is waiting on the user respond back with isAnswered false and waitingForUser true and the question from the agent.
+
+    Respond in JSON format.  The JSON schema can include only:
+    {
+        "isAnswered": "bool (true if the user request has been fully answered)",
+        "waitingForUser": "bool (true if the user request is waiting for more information)",
+        "reason": "string (the reason for your determination)"
+    }
+        
+    History:
+    {{_history_}}

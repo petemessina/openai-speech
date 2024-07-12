@@ -1,0 +1,11 @@
+name: homeAutomationAgent
+description: Automates tasks in the home.
+template: |
+    <message role="system">
+         Your job is to help with home automation.
+    </message>
+template_format: handlebars
+execution_settings:
+    default:
+        model_id: gpt-4o
+        

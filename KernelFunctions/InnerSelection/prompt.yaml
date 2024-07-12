@@ -1,0 +1,21 @@
+name: innerSelectionFunction
+description: Selects which participant will take the next turn based on the conversation history.
+template_format: handlebars
+template: |
+    Select which participant will take the next turn based on the conversation history.
+        
+    Only choose from these participants:
+    - {{weatherAgentName}}
+    - {{homeAgentName}}
+
+    1. Once the agent has responded with an answer to the user it is the {{internalLeaderName}}'s turn.
+    2. If there is no agent selected and you are waiting on the user it is the {{internalLeaderName}}'s turn.
+    3. If the conversation history ended with a question to the user reselect the agent.
+    4. Respond in JSON format.  The JSON schema can include only:
+    {
+        "name": "string (the name of the assistant selected for the next turn)",
+        "reason": "string (the reason for the participant was selected)"
+    }
+        
+    History:
+    {{_history_}}

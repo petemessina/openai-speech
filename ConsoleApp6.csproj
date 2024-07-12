@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UserSecretsId>e602be71-170d-463f-a42e-69544f1aa487</UserSecretsId>
+  </PropertyGroup>
+
+    <PropertyGroup>
+		<NoWarn>$(NoWarn);SKEXP0110;SKEXP0001;SKEXP0010;SKEXP0101</NoWarn>
+	</PropertyGroup>
+
+    <ItemGroup>
+      <Compile Include=".antlr\ClassroomLexer.cs" />
+      <Compile Include=".antlr\ClassroomParser.cs" />
+    </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Antlr4.Runtime.Standard" Version="4.13.1" />
+    <PackageReference Include="MediatR" Version="12.3.0" />
+    <PackageReference Include="Microsoft.CognitiveServices.Speech" Version="1.38.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />
+    <PackageReference Include="Microsoft.SemanticKernel" Version="1.15.1" />
+    <PackageReference Include="Microsoft.SemanticKernel.Agents.Abstractions" Version="1.14.1-alpha" />
+    <PackageReference Include="Microsoft.SemanticKernel.Agents.Core" Version="1.14.1-alpha" />
+    <PackageReference Include="Microsoft.SemanticKernel.Agents.OpenAI" Version="1.14.1-alpha" />
+    <PackageReference Include="Microsoft.SemanticKernel.Connectors.OpenAI" Version="1.15.1" />
+    <PackageReference Include="Microsoft.SemanticKernel.Experimental.Agents" Version="1.15.1-alpha" />
+    <PackageReference Include="YamlDotNet" Version="15.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Agents\Leader\" />
+    <Folder Include="Agents\HomeAutomation\" />
+    <Folder Include="Agents\Weather\" />
+    <Folder Include="KernelFunctions\OuterTermination\" />
+  </ItemGroup>
+
+</Project>
