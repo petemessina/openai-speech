@@ -13,8 +13,9 @@
 	</PropertyGroup>
 
     <ItemGroup>
-      <Compile Include=".antlr\ClassroomLexer.cs" />
-      <Compile Include=".antlr\ClassroomParser.cs" />
+      <Compile Remove=".antlr\**" />
+      <EmbeddedResource Remove=".antlr\**" />
+      <None Remove=".antlr\**" />
     </ItemGroup>
 
   <ItemGroup>

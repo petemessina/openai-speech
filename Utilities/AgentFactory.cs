@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Agents;
+using Microsoft.SemanticKernel.Connectors.OpenAI;
 
 namespace ConsoleApp6.Utilities
 {
@@ -12,14 +13,11 @@ namespace ConsoleApp6.Utilities
             string azureOpenAIEndpoint,
             string apiKey,
             IEnumerable<KernelPlugin> plugins
-        ) {
-            var agentBuilder = new AgentBuilder(kernelBuilder);
+        )
+        {
             string yamlContent = File.ReadAllText(templatePath);
             PromptTemplateConfig promptTemplateConfig = KernelFunctionYaml.ToPromptTemplateConfig(yamlContent);
-            ChatCompletionAgent agent = agentBuilder.FromTemplatePath(templatePath)
-                    .WithAzureOpenAIChatCompletion(azureOpenAIEndpoint, promptTemplateConfig.DefaultExecutionSettings.ModelId, apiKey)
-                    .WithPlugins(plugins)
-                    .Build();
+            ChatCompletionAgent agent = BuildAgent(templatePath, kernelBuilder, plugins);
 
             kernelBuilder.Services.AddKeyedSingleton(
                 promptTemplateConfig.Name,
@@ -34,13 +32,11 @@ namespace ConsoleApp6.Utilities
             string templatePath,
             string azureOpenAIEndpoint,
             string apiKey
-        ) {
-            var agentBuilder = new AgentBuilder(kernelBuilder);
+        )
+        {
             string yamlContent = File.ReadAllText(templatePath);
             PromptTemplateConfig promptTemplateConfig = KernelFunctionYaml.ToPromptTemplateConfig(yamlContent);
-            ChatCompletionAgent agent = agentBuilder.FromTemplatePath(templatePath)
-                    .WithAzureOpenAIChatCompletion(azureOpenAIEndpoint, promptTemplateConfig.DefaultExecutionSettings.ModelId, apiKey)
-                    .Build();
+            ChatCompletionAgent agent = BuildAgent(templatePath, kernelBuilder);
 
             kernelBuilder.Services.AddKeyedSingleton(
                 promptTemplateConfig.Name,
@@ -48,6 +44,37 @@ namespace ConsoleApp6.Utilities
             );
 
             return agent;
+        }
+
+        private static ChatCompletionAgent BuildAgent(
+            string templatePath,
+            IKernelBuilder kernelBuilder,
+            IEnumerable<KernelPlugin> plugins = null
+        )
+        {
+            var yamlContent = File.ReadAllText(templatePath);
+            var config = KernelFunctionYaml.ToPromptTemplateConfig(yamlContent);
+
+            if (plugins != null)
+            {
+                foreach (KernelPlugin plugin in plugins)
+                {
+                    kernelBuilder.Plugins.Add(plugin);
+                }
+            }
+
+            return new()
+            {
+                Name = config.Name,
+                Kernel = kernelBuilder.Build(),
+                Description = config.Description,
+                Instructions = config.Template.Trim(),
+                ExecutionSettings = new OpenAIPromptExecutionSettings
+                {
+                    ModelId = config.DefaultExecutionSettings.ModelId,
+                    ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions,
+                }
+            };
         }
     }
 }
