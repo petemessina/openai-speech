@@ -13,7 +13,6 @@
         AzureAISpeech AzureAISpeech
     );
 
-
     public record OpenAI(
         string Endpoint,
         string ModelName,

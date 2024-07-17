@@ -12,9 +12,8 @@ namespace ConsoleApp6.Utilities
             string templatePath,
             string azureOpenAIEndpoint,
             string apiKey,
-            IEnumerable<KernelPlugin> plugins
-        )
-        {
+            IEnumerable<KernelPlugin>? plugins = null
+        ) {
             string yamlContent = File.ReadAllText(templatePath);
             PromptTemplateConfig promptTemplateConfig = KernelFunctionYaml.ToPromptTemplateConfig(yamlContent);
             ChatCompletionAgent agent = BuildAgent(templatePath, kernelBuilder, plugins);
@@ -27,31 +26,11 @@ namespace ConsoleApp6.Utilities
             return agent;
         }
 
-        public static ChatCompletionAgent AgentFromFileTemplate(
-            IKernelBuilder kernelBuilder,
-            string templatePath,
-            string azureOpenAIEndpoint,
-            string apiKey
-        )
-        {
-            string yamlContent = File.ReadAllText(templatePath);
-            PromptTemplateConfig promptTemplateConfig = KernelFunctionYaml.ToPromptTemplateConfig(yamlContent);
-            ChatCompletionAgent agent = BuildAgent(templatePath, kernelBuilder);
-
-            kernelBuilder.Services.AddKeyedSingleton(
-                promptTemplateConfig.Name,
-                (provider, key) => agent
-            );
-
-            return agent;
-        }
-
         private static ChatCompletionAgent BuildAgent(
             string templatePath,
             IKernelBuilder kernelBuilder,
-            IEnumerable<KernelPlugin> plugins = null
-        )
-        {
+            IEnumerable<KernelPlugin>? plugins = null
+        ) {
             var yamlContent = File.ReadAllText(templatePath);
             var config = KernelFunctionYaml.ToPromptTemplateConfig(yamlContent);
 

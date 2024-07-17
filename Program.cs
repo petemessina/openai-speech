@@ -1,11 +1,8 @@
-﻿using Azure.AI.OpenAI;
-using Microsoft.CognitiveServices.Speech;
+﻿using Microsoft.CognitiveServices.Speech;
 using Microsoft.CognitiveServices.Speech.Audio;
 using Microsoft.Extensions.Configuration;
 using System.Reflection;
-using Microsoft.SemanticKernel.Agents;
 using Microsoft.SemanticKernel;
-using Microsoft.SemanticKernel.Connectors.OpenAI;
 using ConsoleApp6.Models;
 using ConsoleApp6.Services;
 

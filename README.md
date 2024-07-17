@@ -1,0 +1,6 @@
+# Project Overview
+This proof of concept demonstrates the integration of AI Speech with Semantic Kernel to create a conversational AI experience, enabling more natural and intuitive interactions with OpenAI's large language models. Semantic Kernel, an open-source framework notable for its extensibility, enhances interactions with large language models (LLMs) and can facilitate agent-based interactions, providing functions and plugins that add contextual depth. The provided code offers a straightforward example of how to connect with OpenAI, allowing for seamless voice communication with LLMs and featuring advanced routing capabilities to determine the appropriate agent response to user prompts. Below are the examples used to create this POC.
+
+## Resources
+- [Semantic Kernel Nested Shopper Example](https://github.com/microsoft/semantic-kernel/blob/edf97c9d9712d826e66fdb56c4903964fa66d91e/dotnet/samples/Concepts/Agents/ComplexChat_NestedShopper.cs#L184)
+- [Azure OpenAI speech to speech chat](https://learn.microsoft.com/en-us/azure/ai-services/speech-service/openai-speech?tabs=windows&pivots=programming-language-csharp)
